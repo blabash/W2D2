@@ -27,18 +27,21 @@ class Display
       puts
       row.each_with_index do |square, j|
 
-        bgcolor = :black if (i + j).odd?
-        bgcolor = :grey if (i + j).even?
+        bgcolor = :blue if (i + j).odd?
+        bgcolor = :light_blue if (i + j).even?
 
         bgcolor = :red if [i,j] == @cursor.cursor_pos
 
         if square == nil
            string = "   "
         else
-           string = " ♔ "
+           string = square.symbol
+           piece_color = square.color
         end
 
-        print string.colorize(:color => :yellow, :background => bgcolor)
+
+
+        print string.colorize(:color => piece_color, :background => bgcolor)
        
       end
     end

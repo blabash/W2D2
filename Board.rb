@@ -7,29 +7,35 @@ class Board
     @grid = Array.new(8) {Array.new(8)}
     (0...grid.length).each do |i|
       (0...grid.length).each do |j|
-        if i == 0 || i == 1 || i == 6 || i == 7
-          grid[i][j] = Piece.new([i,j])
+        
+        if i == 0 || i == 1 
+          grid[i][j] = Rook.new(:black, self, [i, j])
+
+        elsif i == 6 || i == 7
+          grid[i][j] = Rook.new(:white, self, [i, j])
+
         end
       end
     end
   end
 
-  def [] (pos)
+  def [](pos)
     @grid[pos[0]][pos[1]]
   end
 
-  def []= (pos, value)
+  def []=(pos, value)
     @grid[pos[0]][pos[1]] = value
   end
 
 
 
   def move_piece(start_pos, end_pos)
+
     if !valid_pos?(start_pos)
       raise "start position out of bounds, dude!"
     end
 
-    if grid[start_pos] == nil
+    if grid[start_pos[0]][start_pos[1]] == nil
       raise "no piece there, bro!"
     end
 
@@ -38,9 +44,9 @@ class Board
       raise "position out of bounds, guy!"
     end
 
-    grid[end_pos] = grid[start_pos]
+    grid[end_pos[0]][end_pos[1]] = grid[start_pos[0]][start_pos[1]]
 
-    grid[start_pos] = nil
+    grid[start_pos[0]][start_pos[1]] = nil
   end
 
   def valid_pos?(pos)
