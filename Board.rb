@@ -2,16 +2,24 @@ require_relative 'piece.rb'
 
 
 class Board
-  attr_reader :board
+  attr_reader :grid
   def initialize
-    @board = Array.new(8) {Array.new(8)}
-    (0...board.length).each do |i|
-      (0...board.length).each do |j|
+    @grid = Array.new(8) {Array.new(8)}
+    (0...grid.length).each do |i|
+      (0...grid.length).each do |j|
         if i == 0 || i == 1 || i == 6 || i == 7
-          board[i][j] = Piece.new([i,j])
+          grid[i][j] = Piece.new([i,j])
         end
       end
     end
+  end
+
+  def [] (pos)
+    @grid[pos[0]][pos[1]]
+  end
+
+  def []= (pos, value)
+    @grid[pos[0]][pos[1]] = value
   end
 
 
@@ -21,7 +29,7 @@ class Board
       raise "start position out of bounds, dude!"
     end
 
-    if board[start_pos[0]][start_pos[1]] == nil
+    if grid[start_pos] == nil
       raise "no piece there, bro!"
     end
 
@@ -30,9 +38,9 @@ class Board
       raise "position out of bounds, guy!"
     end
 
-    board[end_pos[0]][end_pos[1]] = board[start_pos[0]][start_pos[1]]
+    grid[end_pos] = grid[start_pos]
 
-    board[start_pos[0]][start_pos[1]] = nil
+    grid[start_pos] = nil
   end
 
   def valid_pos?(pos)

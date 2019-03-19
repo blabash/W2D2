@@ -40,8 +40,13 @@ class Cursor
   end
 
   def get_input
-    key = KEYMAP[read_char]
-    handle_key(key)
+    begin
+      key = KEYMAP[read_char]
+      handle_key(key)
+    rescue
+      @cursor_pos = @rescue_pos
+      retry
+    end
   end
 
   private
@@ -92,15 +97,14 @@ class Cursor
     when :ctrl_c
       Process.exit(0)
     end
-
-
-
   end
 
   def update_pos(diff)
+    @rescue_pos = self.cursor_pos.dup
+
     self.cursor_pos[0] = self.cursor_pos[0] + diff[0]
     self.cursor_pos[1] = self.cursor_pos[1] + diff[1]
-    if !board.valid_pos(self.cursor_pos)
+    if !board.valid_pos?(self.cursor_pos)
       raise "cursor pos out of bounds, sir!"
     end
   end
