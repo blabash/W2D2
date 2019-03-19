@@ -1,5 +1,5 @@
 require_relative 'piece.rb'
-require 
+
 
 class Board
   attr_reader :board
@@ -14,8 +14,10 @@ class Board
     end
   end
 
+
+
   def move_piece(start_pos, end_pos)
-    if !( (0..7) === start_pos[0] &&  (0..7) === start_pos[1] )
+    if !valid_pos?(start_pos)
       raise "start position out of bounds, dude!"
     end
 
@@ -24,7 +26,7 @@ class Board
     end
 
 
-    if !( (0..7) === end_pos[0] &&  (0..7) === end_pos[1] )
+    if !valid_pos?(end_pos)
       raise "position out of bounds, guy!"
     end
 
@@ -32,5 +34,13 @@ class Board
 
     board[start_pos[0]][start_pos[1]] = nil
   end
+
+  def valid_pos?(pos)
+    return false if !( (0..7) === pos[0] &&  (0..7) === pos[1] )
+    true
+  end
+
+
+
 
 end
