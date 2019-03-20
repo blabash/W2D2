@@ -282,3 +282,61 @@ class Rook < Piece
     "vertical"
   end
 end
+
+
+class Knight < Piece
+
+  def initialize(color, board, pos)
+    super
+  end
+
+  def symbol
+    if @color == :white
+      return " ♘ "
+    else
+      return " ♞ "
+    end
+  end
+
+  def move_dirs
+    "knight"
+  end
+end
+
+class King < Piece
+
+  def initialize(color, board, pos)
+    super
+  end
+
+  def symbol
+    if @color == :white
+      return " ♔ "
+    else
+      return " ♚ "
+    end
+  end
+
+  def move_dirs
+    "king"
+  end
+end
+
+class Pawn < Piece
+
+  def initialize(color, board, pos)
+    super
+  end
+
+  def symbol
+    if @color == :white
+      return " ♙ "
+    else
+      return " ♟ "
+    end
+  end
+
+  def move_dirs
+    "king"
+  end
+end
