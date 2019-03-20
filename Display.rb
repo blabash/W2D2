@@ -32,17 +32,10 @@ class Display
 
         bgcolor = :red if [i,j] == @cursor.cursor_pos
 
-        if square == nil
-           string = "   "
-        else
-           string = square.symbol
-           piece_color = square.color
-        end
+        string = square.symbol
+        piece_color = square.color
 
-
-
-        print string.colorize(:color => piece_color, :background => bgcolor)
-       
+        print string.colorize(:color => piece_color, :background => bgcolor)       
       end
     end
     nil

@@ -9,11 +9,13 @@ class Board
       (0...grid.length).each do |j|
         
         if i == 0 || i == 1 
-          grid[i][j] = Rook.new(:black, self, [i, j])
+          grid[i][j] = Bishop.new(:black, self, [i, j])
 
         elsif i == 6 || i == 7
-          grid[i][j] = Rook.new(:white, self, [i, j])
+          grid[i][j] = Bishop.new(:white, self, [i, j])
 
+        else
+          grid[i][j] = NullPiece.instance
         end
       end
     end
@@ -35,7 +37,7 @@ class Board
       raise "start position out of bounds, dude!"
     end
 
-    if grid[start_pos[0]][start_pos[1]] == nil
+    if grid[start_pos[0]][start_pos[1]].is_a?(NullPiece)
       raise "no piece there, bro!"
     end
 
@@ -46,7 +48,7 @@ class Board
 
     grid[end_pos[0]][end_pos[1]] = grid[start_pos[0]][start_pos[1]]
 
-    grid[start_pos[0]][start_pos[1]] = nil
+    grid[start_pos[0]][start_pos[1]] = NullPiece.instance
   end
 
   def valid_pos?(pos)
